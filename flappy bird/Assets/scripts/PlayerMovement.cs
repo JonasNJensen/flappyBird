@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public AudioClip jumpSound;
+    private AudioSource audioSource;
+    public float moveSpeed = 5f;
+    public float jumpForce = 10f;
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
-
-    public float moveSpeed = 5f;
-    public float jumpForce = 10f;
+    
 
     void Update()
     {
@@ -27,6 +29,10 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
+        if (jumpSound != null)
+        {
+            audioSource.PlayOneShot(jumpSound);
+        }
         GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, jumpForce);
         
     }
