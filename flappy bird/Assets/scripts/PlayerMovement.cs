@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public AudioClip jumpSound;
     private AudioSource audioSource;
-    public float moveSpeed = 5f;
+    public float moveSpeed = 0f;
     public float jumpForce = 10f;
     // Start is called before the first frame update
     void Start()
@@ -34,11 +34,6 @@ public class PlayerMovement : MonoBehaviour
             audioSource.PlayOneShot(jumpSound);
         }
         GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, jumpForce);
-        
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
         
     }
 }
