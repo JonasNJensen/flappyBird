@@ -7,11 +7,14 @@ public class Collition : MonoBehaviour
 {
     public AudioClip deathSound;
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI deathScoreText;
+    public GameObject deathScreen;
     private int score = 0;
     private AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
+        deathScreen.SetActive(false);
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -21,8 +24,9 @@ public class Collition : MonoBehaviour
         UpdateScoreText();
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("Trigger entered: " + collision.tag);
         // Check if the player collides with a pillar
         if (collision.gameObject.CompareTag("Finish"))
         {
@@ -42,6 +46,12 @@ public class Collition : MonoBehaviour
         {
             audioSource.PlayOneShot(deathSound);
         }
+        Time.timeScale = 0f;
+        if (deathScoreText != null)
+        {
+            deathScoreText.text = "Score: " + score;
+        }
+        deathScreen.SetActive(true);
         // You can implement actions like respawning or game over screen here
         Debug.Log("Player killed!");
         // For example, you might want to reload the scene or set the player's position to a respawn point.
